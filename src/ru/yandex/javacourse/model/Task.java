@@ -1,3 +1,5 @@
+package ru.yandex.javacourse.model;
+
 public class Task {
 
     private Integer id;

@@ -1,3 +1,10 @@
+package ru.yandex.javacourse.service;
+
+import ru.yandex.javacourse.model.Epic;
+import ru.yandex.javacourse.model.Subtask;
+import ru.yandex.javacourse.model.Task;
+import ru.yandex.javacourse.model.TaskStatus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -71,18 +78,30 @@ public class TaskManager {
         }
     }
 
-    // Следующие три метода - получение списка (HashMap) всех задач соответствующего типа
+    // Следующие три метода - получение списка (ArrayList) всех задач соответствующего типа
 
-    public HashMap<Integer, Task> getTasks() {
-        return tasks;
+    public ArrayList<Task> getTasks() {
+        ArrayList<Task> listTasks = new ArrayList<>();
+        for (int i : tasks.keySet()) {
+            listTasks.add(tasks.get(i));
+        }
+        return listTasks;
     }
 
-    public HashMap<Integer, Subtask> getSubtasks() {
-        return subtasks;
+    public ArrayList<Task> getSubtasks() {
+        ArrayList<Task> listTasks = new ArrayList<>();
+        for (int i : subtasks.keySet()) {
+            listTasks.add(subtasks.get(i));
+        }
+        return listTasks;
     }
 
-    public HashMap<Integer, Epic> getEpics() {
-        return epics;
+    public ArrayList<Task> getEpics() {
+        ArrayList<Task> listTasks = new ArrayList<>();
+        for (int i : epics.keySet()) {
+            listTasks.add(epics.get(i));
+        }
+        return listTasks;
     }
 
 
@@ -94,8 +113,10 @@ public class TaskManager {
 
     public void removeSubtasks() {
         subtasks = new HashMap<>();
-        for (int i : epics.keySet()) { // для всех Epic устанавливаем статус NEW
-            epics.get(i).setStatus(TaskStatus.NEW);
+        for (int i : epics.keySet()) { // для всех Epic очищаем списки id подзадач, и устанавливаем статус NEW
+            Epic epic = epics.get(i);
+            epic.setSubtasksIds(new ArrayList<>());
+            epic.setStatus(TaskStatus.NEW);
         }
     }
 
@@ -118,14 +139,14 @@ public class TaskManager {
         return epics.get(id);
     }
 
-    // получение списка (HashMap) подзадач определённого Эпика.
-    public HashMap<Integer, Subtask> getSubtasksOfEpic(int epicId) {
-        HashMap<Integer, Subtask> subtasksOfEpic = new HashMap<>();
+    // получение списка (ArrayList) подзадач определённого Эпика.
+    public ArrayList<Subtask> getSubtasksOfEpic(int epicId) {
+        ArrayList<Subtask> result = new ArrayList<>();
         Epic epic = epics.get(epicId);
-        for (int id : epic.getSubtasksIds()) {
-            subtasksOfEpic.put(id, subtasks.get(id));
+        for (int i : epic.getSubtasksIds()) {
+            result.add(subtasks.get(i));
         }
-        return subtasksOfEpic;
+        return result;
     }
 
     // расчёт статуса Epic
@@ -150,14 +171,15 @@ public class TaskManager {
                 default:
                     break;
             }
-            if (subtasksIds.size() == counterNEW) {
-                epic.setStatus(TaskStatus.NEW);
-            } else if (subtasksIds.size() == counterDONE) {
-                epic.setStatus(TaskStatus.DONE);
-            } else {
-                epic.setStatus(TaskStatus.IN_PROGRESS);
-            }
         }
+        if (subtasksIds.size() == counterNEW) {
+            epic.setStatus(TaskStatus.NEW);
+        } else if (subtasksIds.size() == counterDONE) {
+            epic.setStatus(TaskStatus.DONE);
+        } else {
+            epic.setStatus(TaskStatus.IN_PROGRESS);
+        }
+
     }
 
     // создание Subtask - метод для тестирования

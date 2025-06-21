@@ -1,3 +1,5 @@
+package ru.yandex.javacourse.model;
+
 public class Subtask extends Task {
 
     private int epicId;
