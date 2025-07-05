@@ -18,9 +18,25 @@ public class Epic extends Task {
         this.subtasksIds = subtasksIds;
     }
 
+    public boolean addSubtaskId(int id) {
+        if (id == this.getId()) {
+            return false;
+        } else {
+            subtasksIds.add(id);
+            return true;
+        }
+    }
+
+    public boolean removeSubtaskId(int id) {
+        return subtasksIds.remove(Integer.valueOf(id));
+    }
+
+
     @Override
     public String toString() {
         String result = super.toString() + ", содержит id Subtask: " + subtasksIds.toString();
         return result;
     }
+
+
 }

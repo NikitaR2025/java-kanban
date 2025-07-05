@@ -1,5 +1,7 @@
 package ru.yandex.javacourse.model;
 
+import java.util.Objects;
+
 public class Task {
 
     private Integer id;
@@ -49,6 +51,18 @@ public class Task {
     @Override
     public String toString() {
         return this.getClass() + ", " + title + ": " + description + ". Статус: " + status;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Task task)) return false;
+        return Objects.equals(id, task.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
 
