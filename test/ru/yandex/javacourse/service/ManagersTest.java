@@ -9,17 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ManagersTest {
 
-    @Test @DisplayName("Проверка создаётся ли TaskManager")
+    @Test
+    @DisplayName("Проверка создаётся ли TaskManager")
     void getDefault_createTaskManager_shouldBeNotNull() {
-        TaskManager taskManager = new InMemoryTaskManager(); {
-        assertNotNull(taskManager, "taskManager = Null");
-        }
+        //when
+        TaskManager taskManager = new InMemoryTaskManager();
+        //then
+        assertNotNull(taskManager, "taskManager не создан, равен Null");
+
     }
 
-    @Test @DisplayName("Проверка создаётся ли HistoryManager")
+    @Test
+    @DisplayName("Проверка создаётся ли HistoryManager")
     void getDefaultHistory_createHistoryManager_shouldBeNotNull() {
-        HistoryManager historyManager = new InMemoryHistoryManager(); {
-            assertNotNull(historyManager, "historyManager = Null");
-        }
+        //when
+        HistoryManager historyManager = new InMemoryHistoryManager();
+        //then
+        assertNotNull(historyManager, "historyManager не создан, равен Null");
     }
 }
