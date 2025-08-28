@@ -36,8 +36,6 @@ public class InMemoryHistoryManager implements HistoryManager {
                 historyList.add(current.getData());
             }
         }
-
-
         return historyList;
     }
 }

@@ -18,14 +18,14 @@ public class LinkedListBasedOnHashMap {
         } else if (tail == null) {
             newNode = new Node(null, head, task);
             tail = newNode;
-            Node oldHead = head;
             head.setPrevious(tail);
-            historyMap.put(oldHead.getData().getId(), head);
+            historyMap.put(head.getData().getId(), head);
         } else {
             Node oldHead = head;
             newNode = new Node(oldHead, null, task);
             oldHead.setNext(newNode);
             historyMap.put(oldHead.getData().getId(), oldHead);
+            head = newNode;
         }
         historyMap.put(task.getId(), newNode);
     }
