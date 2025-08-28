@@ -18,7 +18,9 @@ public class LinkedListBasedOnHashMap {
         } else if (tail == null) {
             newNode = new Node(null, head, task);
             tail = newNode;
+            Node oldHead = head;
             head.setPrevious(tail);
+            historyMap.put(oldHead.getData().getId(), head);
         } else {
             Node oldHead = head;
             newNode = new Node(oldHead, null, task);
@@ -37,4 +39,11 @@ public class LinkedListBasedOnHashMap {
         historyMap.remove(id);
     }
 
+    public Node getHead() {
+        return head;
+    }
+
+    public Node getTail() {
+        return tail;
+    }
 }
