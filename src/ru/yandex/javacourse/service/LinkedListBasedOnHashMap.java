@@ -28,16 +28,13 @@ public class LinkedListBasedOnHashMap {
         historyMap.put(task.getId(), newNode);
     }
 
-    public void remove(Task task) {
-        int taskID = task.getId();
-        Node nodeToRemove = historyMap.get(taskID);
+    public void remove(int id) {
+        Node nodeToRemove = historyMap.get(id);
         Node previous = nodeToRemove.getPrevious();
         Node next = nodeToRemove.getNext();
         previous.setNext(next);
         next.setPrevious(previous);
-        historyMap.remove(taskID);
-
-
+        historyMap.remove(id);
     }
 
 }

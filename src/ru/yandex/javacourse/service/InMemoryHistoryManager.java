@@ -7,14 +7,16 @@ import java.util.ArrayList;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private final ArrayList<Task> history = new ArrayList<>();
+    private final LinkedListBasedOnHashMap history = new LinkedListBasedOnHashMap();
 
     @Override
     public void add(Task task) {
-        if (history.size() > 9) {
-            history.removeFirst();
-        }
         history.add(task);
+    }
+
+    @Override
+    public void remove(int id) {
+        history.remove(id);
     }
 
     @Override
