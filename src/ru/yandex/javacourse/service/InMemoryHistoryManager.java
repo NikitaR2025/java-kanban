@@ -1,6 +1,8 @@
 package ru.yandex.javacourse.service;
 
 import ru.yandex.javacourse.model.HistoryManager;
+import ru.yandex.javacourse.model.LinkedListBasedOnHashMap;
+import ru.yandex.javacourse.model.Node;
 import ru.yandex.javacourse.model.Task;
 
 import java.util.ArrayList;

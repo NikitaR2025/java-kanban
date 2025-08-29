@@ -1,6 +1,4 @@
-package ru.yandex.javacourse.service;
-
-import ru.yandex.javacourse.model.Task;
+package ru.yandex.javacourse.model;
 
 public class Node {
     private Node previous;
