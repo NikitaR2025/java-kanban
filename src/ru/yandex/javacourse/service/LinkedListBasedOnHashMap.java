@@ -11,7 +11,7 @@ public class LinkedListBasedOnHashMap {
     private Node tail = null;
 
     public void add(Task task) {
-        if (historyMap.containsKey(task.getId())){
+        if (historyMap.containsKey(task.getId())) {
             remove(task.getId());
         }
 
@@ -36,21 +36,25 @@ public class LinkedListBasedOnHashMap {
 
     public void remove(int id) {
         Node nodeToRemove = historyMap.get(id);
-        if (nodeToRemove == null){
+        if (nodeToRemove == null) {
             return;
         }
         Node previous = nodeToRemove.getPrevious();
         Node next = nodeToRemove.getNext();
 
-        if (previous != null && next != null){
+        if (previous != null && next != null) { //если удаляемый элемент не хвост и не голова
             next.setPrevious(previous);
             previous.setNext(next);
-        } else if (previous == null && next != null){
+        } else if (previous == null && next != null) { //если удаляемый элемент является хвостом
             next.setPrevious(null);
             tail = next;
-        } else if (previous != null && next == null){
+        } else if (previous != null && next == null) { //если удаляемый элемент голова
             previous.setNext(null);
             head = previous;
+        }
+
+        if (tail == head){
+            head = null;
         }
 
         historyMap.remove(id);
