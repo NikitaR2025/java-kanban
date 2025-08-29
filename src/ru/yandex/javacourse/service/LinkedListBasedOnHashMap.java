@@ -32,10 +32,23 @@ public class LinkedListBasedOnHashMap {
 
     public void remove(int id) {
         Node nodeToRemove = historyMap.get(id);
+        if (nodeToRemove == null){
+            return;
+        }
         Node previous = nodeToRemove.getPrevious();
         Node next = nodeToRemove.getNext();
-        previous.setNext(next);
-        next.setPrevious(previous);
+
+        if (previous != null && next != null){
+            next.setPrevious(previous);
+            previous.setNext(next);
+        } else if (previous == null && next != null){
+            next.setPrevious(null);
+            tail = next;
+        } else if (previous != null && next == null){
+            previous.setNext(null);
+            head = previous;
+        }
+
         historyMap.remove(id);
     }
 
