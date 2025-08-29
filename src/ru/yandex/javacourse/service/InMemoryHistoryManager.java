@@ -26,8 +26,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node tail = history.getTail();
         if (head == null && tail == null) {
             return null;
-        } else if (tail == null) {
-            historyList.add(head.getData());
         } else {
             historyList.add(tail.getData());
             Node current = tail;

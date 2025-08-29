@@ -12,14 +12,14 @@ public class LinkedListBasedOnHashMap {
 
     public void add(Task task) {
         Node newNode = null;
-        if (head == null) {
+        if (tail == null) {
             newNode = new Node(null, null, task);
-            head = newNode;
-        } else if (tail == null) {
-            newNode = new Node(null, head, task);
             tail = newNode;
-            head.setPrevious(tail);
-            historyMap.put(head.getData().getId(), head);
+        } else if (head == null) {
+            newNode = new Node(tail, null, task);
+            head = newNode;
+            tail.setNext(head);
+            historyMap.put(tail.getData().getId(), tail);
         } else {
             Node oldHead = head;
             newNode = new Node(oldHead, null, task);
