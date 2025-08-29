@@ -11,6 +11,10 @@ public class LinkedListBasedOnHashMap {
     private Node tail = null;
 
     public void add(Task task) {
+        if (historyMap.containsKey(task.getId())){
+            remove(task.getId());
+        }
+
         Node newNode = null;
         if (tail == null) {
             newNode = new Node(null, null, task);
