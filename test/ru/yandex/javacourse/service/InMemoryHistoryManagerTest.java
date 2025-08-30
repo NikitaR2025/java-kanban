@@ -29,6 +29,8 @@ public class InMemoryHistoryManagerTest {
     @Test
     @DisplayName("Проверяет, что метод getHistory возвращает ArrayList")
     void getHistory_shouldReturnNotNullList() {
+        //given
+        historyManager.linkLast(firstTask);
         //when
         ArrayList<Task> listTask = historyManager.getHistory();
         //then
@@ -85,7 +87,31 @@ public class InMemoryHistoryManagerTest {
         ArrayList<Task> listTask = historyManager.getTasks();
         //then
         assertEquals(3, listTask.size(), "Неправильное количество элементов в ArrayList");
-}
+    }
+
+    @Test
+    @DisplayName("Проверяет, что при удалении одной ноды, возвращаемый методом getTasks ArrayList имеет правильный size")
+    void removeNode_shouldRemoveNode() {
+        //given
+        historyManager.linkLast(firstTask);
+        historyManager.linkLast(secondTask);
+        Node nodeToRemove = historyManager.linkLast(thirdTask);
+        //when
+        historyManager.removeNode(nodeToRemove);
+        //then
+        assertEquals(2, historyManager.getTasks().size(), "Нода не удалилась из списка");
+    }
+
+    @Test
+    @DisplayName("Проверяет, что при удалении единственной ноды, возвращаемый методом getTasks ArrayList равен null")
+    void removeNode_shouldRemoveSingleNode() {
+        //given
+        Node nodeToRemove = historyManager.linkLast(firstTask);
+        //when
+        historyManager.removeNode(nodeToRemove);
+        //then
+        assertNull(historyManager.getTasks(), "Нода не удалилась из списка");
+    }
 }
 
 

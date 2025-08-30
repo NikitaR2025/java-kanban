@@ -46,7 +46,7 @@ public class LinkedListBasedOnHashMap {
         } else if (previous == null && next != null) { //если удаляемый элемент является хвостом
             next.setPrevious(null);
             tail = next;
-        } else if (previous != null && next == null) { //если удаляемый элемент голова
+        } else if (previous != null) { //если удаляемый элемент голова
             previous.setNext(null);
             head = previous;
         }

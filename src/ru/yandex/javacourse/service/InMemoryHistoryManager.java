@@ -14,8 +14,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node head = null;
     private Node tail = null;
 
-    public void linkLast(Task task) {
-        Node newNode = null;
+    public Node linkLast(Task task) {
+        Node newNode;
         if (tail == null) {
             newNode = new Node(null, null, task);
             tail = newNode;
@@ -31,6 +31,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             //historyMap.put(oldHead.getData().getId(), oldHead);
             head = newNode;
         }
+        return newNode;
     }
 
     public ArrayList<Task> getTasks() {
@@ -48,22 +49,23 @@ public class InMemoryHistoryManager implements HistoryManager {
         return Tasks;
     }
 
-    public void removeNode(Node node){
+    public void removeNode(Node node) {
         Node previous = node.getPrevious();
         Node next = node.getNext();
-
-        if (previous != null && next != null) { //если удаляемый элемент не хвост и не голова
+        if (previous == null && next == null) { //если список из одного элемента
+            tail = null;
+        } else if (previous != null && next != null) { //если удаляемый элемент не хвост и не голова
             next.setPrevious(previous);
             previous.setNext(next);
-        } else if (previous == null && next != null) { //если удаляемый элемент является хвостом
+        } else if (previous == null) { //если удаляемый элемент является хвостом
             next.setPrevious(null);
             tail = next;
-        } else if (previous != null) { //если удаляемый элемент голова
+        } else { //если удаляемый элемент голова
             previous.setNext(null);
             head = previous;
         }
 
-        if (tail == head){
+        if (tail == head) {
             head = null;
         }
     }
@@ -80,20 +82,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public ArrayList<Task> getHistory() {
-        ArrayList<Task> historyList = new ArrayList<>();
-        Node head = history.getHead();
-        Node tail = history.getTail();
-        if (head == null && tail == null) {
-            return null;
-        } else {
-            historyList.add(tail.getData());
-            Node current = tail;
-            while (current.getNext() != null) {
-                current = current.getNext();
-                historyList.add(current.getData());
-            }
-        }
-        return historyList;
+        return getTasks();
     }
 
     public Node getTail() {
