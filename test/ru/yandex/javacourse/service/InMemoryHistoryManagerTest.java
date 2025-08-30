@@ -159,6 +159,17 @@ public class InMemoryHistoryManagerTest {
         assertEquals(historyManager.getHistory().size(), historyManager.getHistoryMapSize(), "Разное количество элементов в Map и связном списке");
     }
 
+    @Test
+    @DisplayName("Проверяет, что последняя добавленная задача будет последней в истории")
+    void add_shouldBeLastInHistory() {
+        //when
+        historyManager.add(firstTask);
+        historyManager.add(secondTask);
+        historyManager.add(thirdTask);
+        //then
+        assertEquals(thirdTask, historyManager.getHistory().getLast(), "Задача не последняя в истории");
+    }
+
 }
 
 
