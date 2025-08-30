@@ -181,6 +181,8 @@ class InMemoryTaskManagerTest {
     @Test
     @DisplayName("Проверяет, что метод getHistory возвращает List")
     void getHistory_shouldReturnList() {
+        //given
+        manager.getTask(taskId);
         //when
         List<Task> listHistory = manager.getHistory();
         //then

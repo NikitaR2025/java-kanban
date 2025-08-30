@@ -16,14 +16,16 @@ public class InMemoryHistoryManagerTest {
     Task secondTask;
     Task thirdTask;
 
-
     @BeforeEach
     void setUp() {
         //given
         historyManager = Managers.getDefaultHistory();
         firstTask = new Task("first Title", "first Description");
+        firstTask.setId(1);
         secondTask = new Task("second Title", "second Description");
+        secondTask.setId(2);
         thirdTask = new Task("third Title", "third Description");
+        thirdTask.setId(3);
     }
 
     @Test
@@ -48,7 +50,7 @@ public class InMemoryHistoryManagerTest {
 
     @Test
     @DisplayName("Проверяет что вторая добавленная в двусвязный список нода становится head")
-    void linkLast_shouldAddSecondNodeToTail() {
+    void linkLast_shouldAddSecondNodeToHead() {
         //when
         historyManager.linkLast(firstTask);
         historyManager.linkLast(secondTask);
@@ -58,7 +60,7 @@ public class InMemoryHistoryManagerTest {
 
     @Test
     @DisplayName("Проверяет что третья добавленная в двусвязный список нода становится head")
-    void linkLast_shouldAddThirdNodeToTail() {
+    void linkLast_shouldAddThirdNodeToHead() {
         //when
         historyManager.linkLast(firstTask);
         historyManager.linkLast(secondTask);
@@ -112,6 +114,51 @@ public class InMemoryHistoryManagerTest {
         //then
         assertNull(historyManager.getTasks(), "Нода не удалилась из списка");
     }
+
+    @Test
+    @DisplayName("Проверяет, что при добавлении двух задач в историю, размер истории становится равен 2")
+    void add_shouldAddToHistory() {
+        //when
+        historyManager.add(firstTask);
+        historyManager.add(secondTask);
+        //then
+        assertEquals(2, historyManager.getHistoryMapSize(), "Размер истории неправильный");
+    }
+
+    @Test
+    @DisplayName("Проверяет, что при повторном добавлении задачи в историю, размер истории не меняется")
+    void add_shouldDeleteAndAddToHistory() {
+        //given
+        historyManager.add(firstTask);
+        int startHistorySize = historyManager.getHistoryMapSize();
+        //when
+        historyManager.add(firstTask);
+        //then
+        assertEquals(startHistorySize, historyManager.getHistoryMapSize(), "Размер истории изменился");
+    }
+
+    @Test
+    @DisplayName("Проверяет, что при удалении задачи из истории, размер истории уменьшается")
+    void remove_shouldReduceHistorySize() {//given
+        historyManager.add(firstTask);
+        historyManager.add(secondTask);
+        int startHistorySize = historyManager.getHistoryMapSize();
+        //when
+        historyManager.remove(firstTask.getId());
+        //then
+        assertEquals(startHistorySize - 1, historyManager.getHistoryMapSize(), "Размер истории не уменьшился");
+    }
+
+    @Test
+    @DisplayName("Проверяет, что количество элементов в связном списке и истории одинаковое")
+    void add_shouldBeEqualSize() {
+        //when
+        historyManager.add(firstTask);
+        historyManager.add(secondTask);
+        //then
+        assertEquals(historyManager.getHistory().size(), historyManager.getHistoryMapSize(), "Разное количество элементов в Map и связном списке");
+    }
+
 }
 
 

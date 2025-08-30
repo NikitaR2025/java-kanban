@@ -1,15 +1,16 @@
 package ru.yandex.javacourse.service;
 
 import ru.yandex.javacourse.model.HistoryManager;
-import ru.yandex.javacourse.model.LinkedListBasedOnHashMap;
 import ru.yandex.javacourse.model.Node;
 import ru.yandex.javacourse.model.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private final LinkedListBasedOnHashMap history = new LinkedListBasedOnHashMap();
+    private final Map<Integer, Node> history = new HashMap();
 
     private Node head = null;
     private Node tail = null;
@@ -50,6 +51,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     public void removeNode(Node node) {
+        if (node == null) {
+            return;
+        }
+
         Node previous = node.getPrevious();
         Node next = node.getNext();
         if (previous == null && next == null) { //если список из одного элемента
@@ -72,11 +77,13 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
-        history.add(task);
+        removeNode(history.get(task.getId()));
+        history.put(task.getId(), linkLast(task));
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(int id) { // протестировать этот метод
+        removeNode(history.get(id));
         history.remove(id);
     }
 
@@ -91,5 +98,9 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     public Node getHead() {
         return head;
+    }
+
+    public int getHistoryMapSize() {
+        return history.size();
     }
 }

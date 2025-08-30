@@ -112,7 +112,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeTasks() {
-        for (int id : tasks.keySet()){ //удаляем таски из истории просмотров
+        for (int id : tasks.keySet()) { //удаляем таски из истории просмотров
             historyManager.remove(id);
         }
         tasks = new HashMap<>();
@@ -120,7 +120,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeSubtasks() {
-        for (int id : subtasks.keySet()){ //удаляем подзадачи из истории просмотров
+        for (int id : subtasks.keySet()) { //удаляем подзадачи из истории просмотров
             historyManager.remove(id);
         }
         subtasks = new HashMap<>();
@@ -133,10 +133,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeEpics() {
-        for (int id : epics.keySet()){ //удаляем все эпики из истории просмотров
+        for (int id : epics.keySet()) { //удаляем все эпики из истории просмотров
             historyManager.remove(id);
         }
-        for (int id : subtasks.keySet()){ //удаляем все подзадачи из истории просмотров
+        for (int id : subtasks.keySet()) { //удаляем все подзадачи из истории просмотров
             historyManager.remove(id);
         }
         epics = new HashMap<>(); // удаляем все эпики и все подзадачи тоже
