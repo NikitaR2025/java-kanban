@@ -11,7 +11,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     private final LinkedListBasedOnHashMap history = new LinkedListBasedOnHashMap();
 
-
     private Node head = null;
     private Node tail = null;
 
@@ -47,6 +46,26 @@ public class InMemoryHistoryManager implements HistoryManager {
             }
         }
         return Tasks;
+    }
+
+    public void removeNode(Node node){
+        Node previous = node.getPrevious();
+        Node next = node.getNext();
+
+        if (previous != null && next != null) { //если удаляемый элемент не хвост и не голова
+            next.setPrevious(previous);
+            previous.setNext(next);
+        } else if (previous == null && next != null) { //если удаляемый элемент является хвостом
+            next.setPrevious(null);
+            tail = next;
+        } else if (previous != null) { //если удаляемый элемент голова
+            previous.setNext(null);
+            head = previous;
+        }
+
+        if (tail == head){
+            head = null;
+        }
     }
 
     @Override
