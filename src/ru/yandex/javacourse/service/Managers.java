@@ -1,6 +1,5 @@
 package ru.yandex.javacourse.service;
 
-import ru.yandex.javacourse.model.HistoryManager;
 import ru.yandex.javacourse.model.TaskManager;
 
 public class Managers {
