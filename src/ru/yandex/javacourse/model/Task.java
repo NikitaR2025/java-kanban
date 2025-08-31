@@ -50,7 +50,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.getClass() + ", " + title + ": " + description + ". Статус: " + status;
+        return this.getClass() + ", id:" + id + ": " + title + ": " + description + ". Статус: " + status;
     }
 
 

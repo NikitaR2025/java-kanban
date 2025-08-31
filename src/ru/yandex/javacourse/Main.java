@@ -1,9 +1,12 @@
 import ru.yandex.javacourse.model.*;
 import ru.yandex.javacourse.service.*;
 
+import java.util.List;
+
 public static void main(String[] args) {
 
     InMemoryTaskManager manager = new InMemoryTaskManager();
+    List<Task> history;
 
     Task task0 = new Task("Уход за котом", "Покормить, выгулять");
     Task task1 = new Task("Заказать еду", "Макароны, гречка, курица");
@@ -22,5 +25,36 @@ public static void main(String[] args) {
     Epic epic1 = new Epic("Доделать ремонт", "построить стены, поклеить обои");
     manager.addTask(epic1);
 
+    manager.getTask(task1.getId());
+    manager.getTask(task1.getId());
+    manager.getSubtask(Epic0subtask2.getId());
+    manager.getSubtask(Epic0subtask0.getId());
+    manager.getTask(task0.getId());
+    manager.getEpic(epic1.getId());
+    manager.getTask(task0.getId());
+    manager.getEpic(epic1.getId());
+    manager.getTask(task0.getId());
+    manager.getSubtask(Epic0subtask1.getId());
+    manager.getEpic(epic0.getId());
+    manager.getEpic(epic0.getId());
 
+    history = manager.getHistory();
+    printHistory(history);
+
+    System.out.println("Удалим Задачу, title: " + task1.getTitle());
+    manager.removeTask(task1.getId());
+    history = manager.getHistory();
+    printHistory(history);
+
+    System.out.println("Удалим Эпик с тремя подзадачами, его id: " + epic0.getId());
+    manager.removeTask(epic0.getId());
+    history = manager.getHistory();
+    printHistory(history);
+}
+
+static void printHistory(List<Task> history) {
+    for (Task task : history) {
+        System.out.println(task);
+    }
+    System.out.println();
 }

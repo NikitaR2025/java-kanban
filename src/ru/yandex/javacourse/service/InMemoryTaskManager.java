@@ -42,7 +42,6 @@ public class InMemoryTaskManager implements TaskManager {
     // удаление задачи любого типа
     @Override
     public void removeTask(int id) {
-        historyManager.remove(id);
         if (tasks.containsKey(id)) {
             tasks.remove(id);
         } else if (subtasks.containsKey(id)) {
@@ -54,9 +53,11 @@ public class InMemoryTaskManager implements TaskManager {
             ArrayList<Integer> subtasksIds = epics.get(id).getSubtasksIds();// удаляем Epic и все его подзадачи.
             for (int subtaskId : subtasksIds) {
                 subtasks.remove(subtaskId);
+                historyManager.remove(subtaskId);
             }
             epics.remove(id);
         }
+        historyManager.remove(id);
     }
 
     // обновление задачи любого типа
