@@ -37,9 +37,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     public ArrayList<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        if (head == null && tail == null) {
-            return null;
-        } else {
+        if (tail != null) {
             tasks.add(tail.getData());
             Node current = tail;
             while (current.getNext() != null) {

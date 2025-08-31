@@ -31,8 +31,6 @@ public class InMemoryHistoryManagerTest {
     @Test
     @DisplayName("Проверяет, что метод getHistory возвращает ArrayList")
     void getHistory_shouldReturnNotNullList() {
-        //given
-        historyManager.linkLast(firstTask);
         //when
         ArrayList<Task> listTask = historyManager.getHistory();
         //then
