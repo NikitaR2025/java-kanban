@@ -103,14 +103,14 @@ public class InMemoryHistoryManagerTest {
     }
 
     @Test
-    @DisplayName("Проверяет, что при удалении единственной ноды, возвращаемый методом getTasks ArrayList равен null")
+    @DisplayName("Проверяет, что при удалении единственной ноды, возвращаемый методом getTasks ArrayList пустой")
     void removeNode_shouldRemoveSingleNode() {
         //given
         Node nodeToRemove = historyManager.linkLast(firstTask);
         //when
         historyManager.removeNode(nodeToRemove);
         //then
-        assertNull(historyManager.getTasks(), "Нода не удалилась из списка");
+        assertEquals(0, historyManager.getTasks().size(), "Нода не удалилась из списка");
     }
 
     @Test
