@@ -8,6 +8,7 @@ public static void main(String[] args) {
     InMemoryTaskManager manager = new InMemoryTaskManager();
     List<Task> history;
 
+    // Создадим задачи, эпики, подзадачи
     Task task0 = new Task("Уход за котом", "Покормить, выгулять");
     Task task1 = new Task("Заказать еду", "Макароны, гречка, курица");
     manager.addTask(task0);
@@ -25,6 +26,8 @@ public static void main(String[] args) {
     Epic epic1 = new Epic("Доделать ремонт", "построить стены, поклеить обои");
     manager.addTask(epic1);
 
+
+    // запросим задачи в разном порядке, с повторами, и т.д.
     manager.getTask(task1.getId());
     manager.getTask(task1.getId());
     manager.getSubtask(Epic0subtask2.getId());
@@ -38,21 +41,24 @@ public static void main(String[] args) {
     manager.getEpic(epic0.getId());
     manager.getEpic(epic0.getId());
 
+    // напечатаем историю просмотров
     history = manager.getHistory();
-    printHistory(history);
+    for (Task task : history) {
+        System.out.println(task);
+    }
+    System.out.println();
 
     System.out.println("Удалим Задачу, title: " + task1.getTitle());
     manager.removeTask(task1.getId());
     history = manager.getHistory();
-    printHistory(history);
+    for (Task task : history) {
+        System.out.println(task);
+    }
+    System.out.println();
 
     System.out.println("Удалим Эпик с тремя подзадачами, его id: " + epic0.getId());
     manager.removeTask(epic0.getId());
     history = manager.getHistory();
-    printHistory(history);
-}
-
-static void printHistory(List<Task> history) {
     for (Task task : history) {
         System.out.println(task);
     }
