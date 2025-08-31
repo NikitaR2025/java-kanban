@@ -19,12 +19,12 @@ public class Main {
 
         Epic epic0 = new Epic("Уборка", "пора наводить порядок");
         manager.addTask(epic0);
-        Subtask Epic0subtask0 = manager.createSubtask("Стирка", "шорты, футболка, летняя шапка", "Уборка");
-        Subtask Epic0subtask1 = manager.createSubtask("Помыть полы", "Пылесосить, помыть", "Уборка");
-        Subtask Epic0subtask2 = manager.createSubtask("Посуда", "Помыть, убрать", "Уборка");
-        manager.addTask(Epic0subtask0);
-        manager.addTask(Epic0subtask1);
-        manager.addTask(Epic0subtask2);
+        Subtask epic0subtask0 = manager.createSubtask("Стирка", "шорты, футболка, летняя шапка", "Уборка");
+        Subtask epic0subtask1 = manager.createSubtask("Помыть полы", "Пылесосить, помыть", "Уборка");
+        Subtask epic0subtask2 = manager.createSubtask("Посуда", "Помыть, убрать", "Уборка");
+        manager.addTask(epic0subtask0);
+        manager.addTask(epic0subtask1);
+        manager.addTask(epic0subtask2);
 
         Epic epic1 = new Epic("Доделать ремонт", "построить стены, поклеить обои");
         manager.addTask(epic1);
@@ -32,14 +32,14 @@ public class Main {
         // запросим задачи в разном порядке, с повторами, и т.д.
         manager.getTask(task1.getId());
         manager.getTask(task1.getId());
-        manager.getSubtask(Epic0subtask2.getId());
-        manager.getSubtask(Epic0subtask0.getId());
+        manager.getSubtask(epic0subtask2.getId());
+        manager.getSubtask(epic0subtask0.getId());
         manager.getTask(task0.getId());
         manager.getEpic(epic1.getId());
         manager.getTask(task0.getId());
         manager.getEpic(epic1.getId());
         manager.getTask(task0.getId());
-        manager.getSubtask(Epic0subtask1.getId());
+        manager.getSubtask(epic0subtask1.getId());
         manager.getEpic(epic0.getId());
         manager.getEpic(epic0.getId());
 
