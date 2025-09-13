@@ -1,6 +1,5 @@
 package ru.yandex.javacourse.service;
 
-import ru.yandex.javacourse.model.HistoryManager;
 import ru.yandex.javacourse.model.TaskManager;
 
 public class Managers {
@@ -9,9 +8,8 @@ public class Managers {
         return new InMemoryTaskManager();
     }
 
-    public static HistoryManager getDefaultHistory() {
+    public static InMemoryHistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
-
 
 }

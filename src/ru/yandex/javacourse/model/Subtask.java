@@ -21,4 +21,9 @@ public class Subtask extends Task {
             return true;
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Принадлежит эпику id: " + epicId;
+    }
 }
