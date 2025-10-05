@@ -8,25 +8,25 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+        FileBackedTaskManager manager = new FileBackedTaskManager();
         List<Task> history;
 
         // Создадим задачи, эпики, подзадачи
-        Task task0 = new Task("Уход за котом", "Покормить, выгулять");
-        Task task1 = new Task("Заказать еду", "Макароны, гречка, курица");
+        Task task0 = new Task("Уход за котом", "Покормить выгулять");
+        Task task1 = new Task("Заказать еду", "Макароны гречка курица");
         manager.addTask(task0);
         manager.addTask(task1);
 
         Epic epic0 = new Epic("Уборка", "пора наводить порядок");
         manager.addTask(epic0);
-        Subtask epic0subtask0 = manager.createSubtask("Стирка", "шорты, футболка, летняя шапка", "Уборка");
-        Subtask epic0subtask1 = manager.createSubtask("Помыть полы", "Пылесосить, помыть", "Уборка");
-        Subtask epic0subtask2 = manager.createSubtask("Посуда", "Помыть, убрать", "Уборка");
+        Subtask epic0subtask0 = manager.createSubtask("Стирка", "шорты футболка летняя шапка", "Уборка");
+        Subtask epic0subtask1 = manager.createSubtask("Помыть полы", "Пылесосить помыть", "Уборка");
+        Subtask epic0subtask2 = manager.createSubtask("Посуда", "Помыть убрать", "Уборка");
         manager.addTask(epic0subtask0);
         manager.addTask(epic0subtask1);
         manager.addTask(epic0subtask2);
 
-        Epic epic1 = new Epic("Доделать ремонт", "построить стены, поклеить обои");
+        Epic epic1 = new Epic("Доделать ремонт", "построить стены поклеить обои");
         manager.addTask(epic1);
 
         // запросим задачи в разном порядке, с повторами, и т.д.
