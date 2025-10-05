@@ -4,10 +4,7 @@ import ru.yandex.javacourse.model.ManagerSaveException;
 import ru.yandex.javacourse.model.*;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,27 +22,58 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+    @Override
+    public void removeTask(int id) {
+        super.removeTask(id);
+        save();
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        super.updateTask(task);
+        save();
+    }
+
+    @Override
+    public void removeTasks() {
+        super.removeTasks();
+        save();
+    }
+
+    @Override
+    public void removeSubtasks() {
+        super.removeSubtasks();
+        save();
+    }
+
+    @Override
+    public void removeEpics() {
+        super.removeEpics();
+        save();
+    }
+
+    // сохранение всех задач в файл
     private void save() {
-        try (FileWriter writer = new FileWriter(path.toFile(), StandardCharsets.UTF_8, false)) {
+        try (BufferedWriter buff = new BufferedWriter(new FileWriter(path.toFile(), StandardCharsets.UTF_8, false))) {
             if (!Files.exists(path)) {
                 Files.createFile(path);
             }
 
-            writer.write(headings);
+            buff.write(headings);
 
             for (Integer key : tasks.keySet()) {
                 Task task = tasks.get(key);
-                writer.write(taskToString(task));
+                buff.write(taskToString(task));
             }
 
             for (Integer key : epics.keySet()) {
                 Task task = epics.get(key);
-                writer.write(taskToString(task));
+                buff.write(taskToString(task));
             }
 
             for (Integer key : subtasks.keySet()) {
                 Task task = subtasks.get(key);
-                writer.write(taskToString(task));
+                buff.write(taskToString(task));
             }
 
         } catch (IOException e) {
@@ -53,6 +81,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
+    // Превращение Task в строку для записи в файл
     private String taskToString(Task task) {
         Enum taskType;
         switch (task) {
@@ -61,8 +90,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             default -> taskType = TaskTypes.TASK;
         }
 
-        StringBuilder builder = new StringBuilder(String.format("%d,%s,%s,%s,%s,", task.getId(), taskType,
-                task.getTitle(), task.getStatus(), task.getDescription()));
+        StringBuilder builder = new StringBuilder(String.format("%d,%s,%s,%s,%s,", task.getId(), taskType, task.getTitle(), task.getStatus(), task.getDescription()));
 
         if (task instanceof Subtask subtask) {
             builder.append(subtask.getEpicId());

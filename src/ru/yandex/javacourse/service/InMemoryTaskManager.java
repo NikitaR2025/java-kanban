@@ -111,6 +111,7 @@ public class InMemoryTaskManager implements TaskManager {
         return listTasks;
     }
 
+    // удаление всех Task
     @Override
     public void removeTasks() {
         for (int id : tasks.keySet()) { //удаляем таски из истории просмотров
@@ -119,6 +120,7 @@ public class InMemoryTaskManager implements TaskManager {
         tasks = new HashMap<>();
     }
 
+    // удаление всех Subtask
     @Override
     public void removeSubtasks() {
         for (int id : subtasks.keySet()) { //удаляем подзадачи из истории просмотров
@@ -132,6 +134,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
+    // удаление всех Epic
     @Override
     public void removeEpics() {
         for (int id : epics.keySet()) { //удаляем все эпики из истории просмотров
