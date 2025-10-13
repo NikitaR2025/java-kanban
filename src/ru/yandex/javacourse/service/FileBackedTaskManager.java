@@ -13,13 +13,42 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private final File file;
 
-    public FileBackedTaskManager() {
-        this.file = new File("data.txt");
-    }
-
     public FileBackedTaskManager(File file) {
         this.file = file;
-        loadFromFile();
+        if (Files.exists(file.toPath())) {
+            loadFromFile();
+        } else {
+            try {
+                Files.createFile(file.toPath());
+            } catch (IOException e) {
+                throw new ManagerSaveException("Файл не существует, ошибка при попытке создания файла");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        FileBackedTaskManager manager = Managers.loadFromFile(new File("data.txt"));
+
+        // Создадим задачи, эпики, подзадачи
+        Task task0 = new Task("Уход за котом", "Покормить выгулять");
+        manager.addTask(task0);
+        Epic epic0 = new Epic("Уборка", "пора наводить порядок");
+        manager.addTask(epic0);
+        Subtask epic0subtask0 = manager.createSubtask("Стирка", "шорты футболка летняя шапка", "Уборка");
+        manager.addTask(epic0subtask0);
+
+        System.out.println("Содержимое manager:");
+        System.out.println(manager.getTasks());
+        System.out.println(manager.getEpics());
+        System.out.println(manager.getSubtasks());
+
+        // Создадим новый FileBackedTaskManager из этого же файла, и выведем его содержимое на экран:
+        FileBackedTaskManager manager1 = Managers.loadFromFile(new File("data.txt"));
+
+        System.out.println("Содержимое manager1:");
+        System.out.println(manager1.getTasks());
+        System.out.println(manager1.getEpics());
+        System.out.println(manager1.getSubtasks());
     }
 
     @Override
@@ -61,9 +90,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     // сохранение всех задач в файл
     public void save() {
         try (BufferedWriter buff = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8, false))) {
-            if (!Files.exists(file.toPath())) {
-                Files.createFile(file.toPath());
-            }
 
             String headings = "id,type,name,status,description,epic";
             buff.write(headings);
