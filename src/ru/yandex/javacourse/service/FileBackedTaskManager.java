@@ -128,9 +128,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return task;
     }
 
+    // Загрузка данных из файла. Метод private, используется в конструкторе.
     private void loadFromFile() {
         try {
             String data = Files.readString(file.toPath());
+            if (data.isBlank()) {
+                return;
+            }
             String[] strings = data.split("\n");
 
             for (int i = 1; i < strings.length; i++) {
@@ -152,6 +156,4 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             throw new ManagerLoadException("Ошибка при загрузке из файла");
         }
     }
-
-
 }
