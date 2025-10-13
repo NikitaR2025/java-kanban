@@ -1,7 +1,5 @@
 package ru.yandex.javacourse.model;
 
-import java.util.ArrayList;
-
 public class Subtask extends Task {
 
     private int epicId;
@@ -15,8 +13,6 @@ public class Subtask extends Task {
         super(id, title, status, description);
         this.epicId = epicId;
     }
-
-
 
     public int getEpicId() {
         return epicId;
