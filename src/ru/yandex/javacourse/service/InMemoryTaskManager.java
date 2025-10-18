@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
-    private int taskCounter = 0;
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, Epic> epics = new HashMap<>();
-    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    protected int taskCounter = 0;
+    protected HashMap<Integer, Task> tasks = new HashMap<>();
+    protected HashMap<Integer, Epic> epics = new HashMap<>();
+    protected HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
+    protected final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public int getTaskCounter() {
@@ -111,6 +111,7 @@ public class InMemoryTaskManager implements TaskManager {
         return listTasks;
     }
 
+    // удаление всех Task
     @Override
     public void removeTasks() {
         for (int id : tasks.keySet()) { //удаляем таски из истории просмотров
@@ -119,6 +120,7 @@ public class InMemoryTaskManager implements TaskManager {
         tasks = new HashMap<>();
     }
 
+    // удаление всех Subtask
     @Override
     public void removeSubtasks() {
         for (int id : subtasks.keySet()) { //удаляем подзадачи из истории просмотров
@@ -132,6 +134,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
+    // удаление всех Epic
     @Override
     public void removeEpics() {
         for (int id : epics.keySet()) { //удаляем все эпики из истории просмотров
